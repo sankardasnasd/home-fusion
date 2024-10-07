@@ -1,0 +1,141 @@
+
+{% extends 'admin/adminindex.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Data</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Add New Record</h2>
+        <form id="addRecordForm" method="POST" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" maxlength="100" required pattern="[a-z A-Z]+">
+                <div class="error-message" id="nameError"></div>
+            </div>
+            <div class="form-group">
+                <label for="place">Place:</label>
+                <input type="text" class="form-control" id="place" name="place" maxlength="100" pattern="[a-z A-Z]+" required>
+                <div class="error-message" id="placeError"></div>
+            </div>
+            <div class="form-group">
+                <label for="post">Post:</label>
+                <input type="text" class="form-control" id="post" name="post" maxlength="100" pattern="[a-z A-Z]+" required>
+                <div class="error-message" id="postError"></div>
+            </div>
+            <div class="form-group">
+                <label for="district">District:</label>
+                <input type="text" class="form-control" id="district" pattern="[a-z A-Z]+" name="district" maxlength="100" required>
+                <div class="error-message" id="districtError"></div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" maxlength="100" required>
+                <div class="error-message" id="emailError"></div>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="text" class="form-control"  id="phone" name="phone" maxlength="10" pattern="[6789][0-9]{9}" required>
+                <div class="error-message" id="phoneError"></div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" minlength="8" maxlength="100" required>
+                <div class="error-message" id="passwordError"></div>
+            </div>
+            <div class="form-group">
+                <label for="image">Image:</label>
+                <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
+                <div class="error-message" id="imageError"></div>
+            </div>
+            <button type="submit" class="btn btn-primary" name="submit">Add Record</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('addRecordForm').addEventListener('submit', function(event) {
+            let isValid = true;
+
+            // Clear previous error messages
+            document.querySelectorAll('.error-message').forEach(function(el) {
+                el.textContent = '';
+            });
+
+            // Name validation
+            const name = document.getElementById('name').value.trim();
+            if (name === '') {
+                document.getElementById('nameError').textContent = 'Name is required.';
+                isValid = false;
+            }
+
+            // Place validation
+            const place = document.getElementById('place').value.trim();
+            if (place === '') {
+                document.getElementById('placeError').textContent = 'Place is required.';
+                isValid = false;
+            }
+
+            // Post validation
+            const post = document.getElementById('post').value.trim();
+            if (post === '') {
+                document.getElementById('postError').textContent = 'Post is required.';
+                isValid = false;
+            }
+
+            // District validation
+            const district = document.getElementById('district').value.trim();
+            if (district === '') {
+                document.getElementById('districtError').textContent = 'District is required.';
+                isValid = false;
+            }
+
+            // Email validation
+            const email = document.getElementById('email').value.trim();
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+                isValid = false;
+            }
+
+            // Phone validation
+            const phone = document.getElementById('phone').value.trim();
+            if (!/^\d{10}$/.test(phone)) {
+                document.getElementById('phoneError').textContent = 'Please enter a valid 10-digit phone number.';
+                isValid = false;
+            }
+
+            // Password validation
+            const password = document.getElementById('password').value.trim();
+            if (password.length < 8) {
+                document.getElementById('passwordError').textContent = 'Password must be at least 8 characters long.';
+                isValid = false;
+            }
+
+            // Image validation
+            const image = document.getElementById('image').files[0];
+            if (!image) {
+                document.getElementById('imageError').textContent = 'Image is required.';
+                isValid = false;
+            }
+
+            // If form is invalid, prevent submission
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,129 @@
+
+{% extends 'owner/ownerindex.html' %}
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Bookings</title>
+</head>
+<style>
+    /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table thead {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+table thead th {
+    padding: 12px;
+    text-align: left;
+    font-size: 16px;
+}
+
+table tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tbody td {
+    padding: 12px;
+    font-size: 14px;
+}
+
+/* Hover Effect */
+table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    table thead {
+        display: none;
+    }
+
+    table tbody tr {
+        display: block;
+        margin-bottom: 15px;
+    }
+
+    table tbody td {
+        display: block;
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    table tbody td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: bold;
+        text-align: left;
+    }
+}
+
+</style>
+<body>
+    <div class="container">
+        <h1>Bookings</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Property</th>
+                    <th>User</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in data %}
+                <tr>
+                    <td>{{ booking.PROPERTY.name }}</td> <!-- Assuming Property model has a 'name' field -->
+                    <td>{{ booking.USER.name }}</td> <!-- Assuming User model has a 'username' field -->
+                    <td>{{ booking.date }}</td>
+                    <td>{{ booking.amount }}</td>
+                    <td>{{ booking.status }}</td>
+                <td><a href="approve_booking/{{ booking.id }}" class="btn btn-info">Approve</a> </td>
+                <td><a href="reject_booking/{{ booking.id }}" class="btn btn-warning">Reject</a> </td>
+                <td><a href="owner_chat_to_user/{{ booking.USER.LOGIN.id }}" class="btn btn-success">Chat</a> </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom Styles */
+        body {
+            background-color: #f8f9fa;
+            background-image: url('/static/bg.jpg'); /* Replace with your image URL */
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin-top: 50px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            border-radius: 10px;
+            border: 1px solid #dee2e6;
+        }
+
+        .card-header {
+            background-color: #007BFF;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: none;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+            box-shadow: none;
+        }
+
+        .btn-primary {
+            background-color: #007BFF;
+            border-color: #007BFF;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        .form-control:focus {
+            border-color: #007BFF;
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+        }
+
+        /* Custom validation styles */
+        .form-control:invalid {
+            border-color: #dc3545;
+        }
+
+        .form-control:valid {
+            border-color: #28a745;
+        }
+
+        .form-text {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                Registration Form
+            </div>
+            <div class="card-body">
+                <form method="post" action="" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+                            <small class="form-text">Name is required.</small>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="place">Place</label>
+                            <input type="text" class="form-control" id="place" name="place" placeholder="Enter your place" required>
+                            <small class="form-text">Place is required.</small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="gender">Gender</label>
+                            <select id="gender" name="gender" class="form-control" required>
+                                <option value="">Select your gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <small class="form-text">Please select your gender.</small>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="idproof">ID Proof</label>
+                            <input type="text" class="form-control" id="idproof" name="idproof" placeholder="Enter your ID proof" required>
+                            <small class="form-text">ID proof is required.</small>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="post">Post</label>
+                            <input type="text" class="form-control" id="post" name="post" placeholder="Enter your post" required>
+                            <small class="form-text">Post is required.</small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="district">District</label>
+                            <input type="text" class="form-control" id="district" name="district" placeholder="Enter your district" required>
+                            <small class="form-text">District is required.</small>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                            <small class="form-text">Enter a valid email address.</small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="phone">Phone</label>
+                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" required pattern="\d{10}">
+                            <small class="form-text">Enter a valid 10-digit phone number.</small>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="image">Image </label>
+                            <input type="file" class="form-control" id="image" name="image" required>
+                            <small class="form-text">Image is required.</small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required minlength="8">
+                            <small class="form-text">Password must be at least 8 characters long.</small>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="confirm_password">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required minlength="8">
+                            <small class="form-text">Please confirm your password.</small>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block" name="submit">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Custom JS for password validation -->
+    <script>
+        document.getElementById('confirm_password').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+            if (password !== confirmPassword) {
+                this.setCustomValidity("Passwords do not match");
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+    </script>
+</body>
+</html>

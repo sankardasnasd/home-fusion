@@ -1,0 +1,82 @@
+
+{% extends 'owner/ownerindex.html' %}
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Property</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center mb-4">Add New Property</h2>
+        <form method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" maxlength="100" required>
+                <div class="invalid-feedback">Please enter the property name.</div>
+            </div>
+            <div class="form-group">
+                <label for="price">Price:</label>
+                <input type="text" class="form-control" id="price" name="price" maxlength="100" required>
+                <div class="invalid-feedback">Please enter the property price.</div>
+            </div>
+            <div class="form-group">
+                <label for="type">Type:</label>
+                <input type="text" class="form-control" id="type" name="type" maxlength="100" required>
+                <div class="invalid-feedback">Please enter the property type.</div>
+            </div>
+            <div class="form-group">
+                <label for="latitude">Latitude:</label>
+                <input type="text" class="form-control" id="latitude" name="latitude" maxlength="100" required pattern="-?\d+(\.\d+)?">
+                <div class="invalid-feedback">Please enter a valid latitude (e.g., 40.7128).</div>
+            </div>
+            <div class="form-group">
+                <label for="longitude">Longitude:</label>
+                <input type="text" class="form-control" id="longitude" name="longitude" maxlength="100" required pattern="-?\d+(\.\d+)?">
+                <div class="invalid-feedback">Please enter a valid longitude (e.g., -74.0060).</div>
+            </div>
+            <div class="form-group">
+                <label for="details">Details:</label>
+                <textarea class="form-control" id="details" name="details" maxlength="200" required></textarea>
+                <div class="invalid-feedback">Please enter the property details.</div>
+            </div>
+            <div class="form-group">
+                <label for="image">Image:</label>
+                <input type="file" class="form-control" id="image" name="image" required>
+                <div class="invalid-feedback">Please upload an image.</div>
+            </div>
+            <button type="submit" name="submit" class="btn btn-primary">Add Property</button>
+        </form>
+    </div>
+
+    <script>
+        // Example of custom validation feedback
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+</body>
+</html>
+{% endblock %}

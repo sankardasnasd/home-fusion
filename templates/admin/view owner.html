@@ -1,0 +1,46 @@
+{% extends 'admin/adminindex.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Record List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Records List</h2>
+    <div>
+{#        <table>#}
+{#            <tr>#}
+{#                <th>Name</th>#}
+{#                <td><input type="text" name="owner"></td>#}
+{#            </tr>#}
+{#        </table>#}
+    </div>
+        <div class="row">
+            {% for record in data %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="{{ record.image }}" class="card-img-top" alt="Image of {{ record.name }}" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ record.name }}</h5>
+                        <p class="card-text"><strong>Place:</strong> {{ record.place }}</p>
+                        <p class="card-text"><strong>Post:</strong> {{ record.post }}</p>
+                        <p class="card-text"><strong>District:</strong> {{ record.district }}</p>
+                        <p class="card-text"><strong>Email:</strong> {{ record.email }}</p>
+                        <p class="card-text"><strong>Phone:</strong> {{ record.phone }}</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="admin_edit_owner/{{ record.id }}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="delete_owner/{{ record.id }}" class="btn btn-danger btn-sm">Delete</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

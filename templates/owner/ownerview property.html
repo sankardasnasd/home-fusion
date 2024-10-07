@@ -1,0 +1,76 @@
+
+{% extends 'owner/ownerindex.html' %}
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Properties</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .card {
+            margin-bottom: 20px;
+        }
+        .card-img-top {
+            height: 180px;
+            object-fit: cover;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .map-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .map-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center mb-4">View Properties</h2>
+        <div class="row">
+            {% for property in data %}
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{{ property.image }}" class="card-img-top" alt="{{ property.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ property.name }}</h5>
+                        <p class="card-text"><strong>Price:</strong> {{ property.price }}</p>
+                        <p class="card-text"><strong>Type:</strong> {{ property.type }}</p>
+                        <p class="card-text"><strong>Details:</strong> {{ property.details }}</p>
+                        <p class="card-text"><strong>Status:</strong> {{ property.status }}</p>
+                        <p class="card-text">
+                            <strong>
+                            <a href="https://www.google.com/maps?q={{ property.latitude }},{{ property.longitude }}" target="_blank" class="map-link">
+                                Location
+                            </a></strong>
+                        </p>
+                         <a href="/owner_update_property/{{ property.id }}" target="_blank" class="btn btn-success">
+                                Update
+                            </a>
+
+
+                          <a href="/reject_property/{{ property.id }}" target="_blank" class="btn btn-danger">
+                              Delete</a>
+
+                               <a href="/onwer_view_property_rating/{{ property.id }}" target="_blank" class="btn btn-warning">
+                                Ratings
+                            </a>
+
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <p class="text-center">No properties found</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

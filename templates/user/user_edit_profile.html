@@ -1,0 +1,142 @@
+
+{% extends 'user/userindex.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            background-image: url('/static/bg.jpg'); /* Replace with your image URL */
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            font-family: Arial, sans-serif;
+        }
+
+
+
+        .card {
+            border-radius: 10px;
+            border: 1px solid #dee2e6;
+        }
+
+        .card-header {
+            background-color: #28a745;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: none;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+            box-shadow: none;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+        .form-control:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+        }
+
+        .form-text {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                Edit Profile
+            </div>
+            <div class="card-body">
+                <form method="post" action="/user_edit_profile_post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ user.name }}" required pattern="[a-z A-Z]+">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="place">Place</label>
+                            <input type="text" class="form-control" id="place" name="place" value="{{ user.place }}" pattern="[a-z A-Z]+" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="gender">Gender</label>
+                            <select id="gender" name="gender" class="form-control" required>
+                                <option value="">Select your gender</option>
+                                <option value="Male" {% if user.gender == "Male" %}selected{% endif %}>Male</option>
+                                <option value="Female" {% if user.gender == "Female" %}selected{% endif %}>Female</option>
+                                <option value="Other" {% if user.gender == "Other" %}selected{% endif %}>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="idproof">ID Proof</label>
+                            <input type="text" class="form-control" id="idproof" name="idproof" value="{{ user.idproof }}" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="post">Post</label>
+                            <input type="text" class="form-control" pattern="[a-z A-Z]+" id="post" name="post" value="{{ user.post }}" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="district">District</label>
+                            <input type="text" class="form-control" pattern="[a-z A-Z]+" id="district" name="district" value="{{ user.district }}" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="phone">Phone</label>
+                            <input type="text" class="form-control"  id="phone" name="phone" value="{{ user.phone }}" required pattern="[6789][0-9]{9}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="image">Profile Image</label>
+                            <input type="hidden" class="form-control" id="id" name="id" value="{{ user.id }}">
+                            <input type="file" class="form-control" id="image" name="image" value="{{ user.image }}">
+                            <small class="form-text text-muted">Upload a new profile image if you want to change it.</small>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success btn-block">Update Profile</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+{% endblock %}

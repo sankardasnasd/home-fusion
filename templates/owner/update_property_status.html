@@ -1,0 +1,109 @@
+
+{% extends 'owner/ownerindex.html' %}
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Property</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+
+
+        h1 {
+            margin-top: 0;
+            color: #007BFF;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Update Property Status</h1>
+        <form method="post" action="/owner_update_property_post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <th>Select Status</th>
+                    <td>
+                        <select required name="select">
+                            <option value="">----SELECT-----</option>
+                            <option value="Available">Available</option>
+                            <option value="Saled">Saled</option>
+                            <option value="Booked">Booked</option>
+                            <option value="not available">Not Available</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center;">
+                        <input type="submit" name="submit" value="Update">
+                    </td>
+                </tr>
+            </table>
+            <input type="hidden" name="id" value="{{ data.id }}">
+        </form>
+    </div>
+</body>
+</html>
+{% endblock %}
